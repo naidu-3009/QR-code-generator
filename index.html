@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="./JsBarcode.all.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,12 +17,13 @@
 
         body {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             background-color: #219ebc;
         }
 
-        .qrcodeg {
+        .qrcodeg
+         {
             margin-top: 18vh;
             width: 400px;
             height: 350px;
@@ -35,6 +37,28 @@
             color: white;
         }
 
+        .barcoder {
+            margin-top: 18vh;
+            width: 400px;
+            height: 300px;
+            padding: 50px 15px 50px 13px;
+            border-radius: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #023047;
+            color: white;
+        }
+
+        .barcoder input{
+            opacity: 0.9;
+            width: 300px;
+            height: 80px;
+            padding-left: 10px;
+            margin-bottom: 15px;
+            font-size: large;
+        }
         input {
             opacity: 0.9;
             width: 300px;
@@ -77,11 +101,25 @@
         <p>Enter the text (or) url to covert it into an embedded QR-Code</p>
         <img src="" id="qrimage">
         <input placeholder="Enter Text here" id="qrtext">
-        <button onclick="genQR()">Generate</button>
+        <button onclick="genQR()">Genrate</button>
     </div>
 
 
+
+    <div class="barcoder">
+        <h1>Bar-Code Generator</h1>
+        <p>Enter the text (or) url to covert it into an embedded Bar-Code</p>
+        <svg id="barcode"></svg>
+        <input type="text" placeholder="What do you want in barcode" id="user_input">
+        <button id="btn_bc">Generate</button>
+    </div>
+
+
+
+
+
     <script>
+
         let imgbox = document.getElementById("imgbox");
         let qrimage = document.getElementById("qrimage");
         let qrtext = document.getElementById("qrtext");
@@ -89,6 +127,15 @@
         function genQR() {
             qrimage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrtext.value;
         }
+        document.getElementById("btn_bc").addEventListener("click", function () {
+            let text = document.getElementById("user_input").value;
+            JsBarcode("#barcode", text, {
+                lineColor: "#000",
+                width : 2,
+                height: 100,
+                displayValue: false
+            });
+        })
     </script>
 </body>
 
